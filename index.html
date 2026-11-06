@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f3ecdf">
+<title>30 ans — Tu viens ?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3ecdf; --paper2:#e9dfcc; --card:#fffdf8;
+    --ink:#16131c; --muted:#6b6372;
+    --hot:#ff4f2b; --sun:#ffd23f; --sun-soft:#fff3c4; --err:#c4251b;
+    --b:2px solid var(--ink);
+    --sh:5px 5px 0 var(--ink);
+    --r:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:17px;line-height:1.5;
+    color:var(--ink);background:var(--paper);min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* grain papier */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.28;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:8px 18px 64px}
+  ::selection{background:var(--sun)}
+
+  /* Bandeau défilant */
+  .marquee{position:relative;z-index:1;overflow:hidden;background:var(--ink);color:var(--paper);
+    border-bottom:var(--b);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+  .marquee-track{display:inline-flex;animation:scroll 38s linear infinite}
+  .marquee-track span{padding:9px 0}
+  .marquee-track i{font-style:normal;color:var(--sun);padding:0 .9em}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* Hero */
+  .hero{text-align:center;padding:34px 0 8px}
+  .sticker{display:inline-block;background:var(--sun);border:var(--b);border-radius:99px;box-shadow:3px 3px 0 var(--ink);
+    padding:6px 16px;font-weight:700;font-size:.92rem;transform:rotate(-3deg)}
+  .big30{margin:6px 0 0;font-weight:800;font-size:clamp(9rem,44vw,15rem);line-height:.82;letter-spacing:.02em;
+    color:var(--hot);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:8px 8px 0 var(--ink)}
+  .big30 em{font-family:"Instrument Serif",serif;font-weight:400;font-size:.3em;letter-spacing:0;color:var(--ink);
+    -webkit-text-stroke:0;text-shadow:none;margin-left:.08em;vertical-align:.15em}
+  /* Photo des organisateurs */
+  .photo{position:relative;margin:30px auto 4px;width:min(340px,84%);background:var(--card);border:var(--b);border-radius:6px;
+    padding:10px 10px 0;box-shadow:var(--sh);transform:rotate(-2.5deg);transition:transform .25s}
+  .photo:hover{transform:rotate(0)}
+  .photo img{display:block;width:100%;height:auto;border:var(--b);border-radius:3px}
+  .photo figcaption{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.25rem;padding:8px 4px 10px}
+  .photo figcaption:empty{padding:0 0 10px}
+  .tape{position:absolute;top:-14px;left:50%;width:96px;height:26px;margin-left:-48px;transform:rotate(4deg);
+    background:var(--sun);border:var(--b);opacity:.92}
+  .hero h1{font-weight:800;font-size:clamp(1.7rem,6.5vw,2.4rem);line-height:1.05;letter-spacing:-.02em;margin:22px 0 8px}
+  .hosts{margin:0;color:var(--muted)}
+  .hosts::first-letter{text-transform:uppercase}
+
+  /* Ticket infos pratiques */
+  .ticket{position:relative;margin:26px auto 0;max-width:460px;background:var(--card);border:var(--b);border-radius:var(--r);
+    box-shadow:var(--sh);text-align:left}
+  .facts{display:grid}
+  .fact{display:flex;gap:12px;align-items:center;padding:13px 18px;border-bottom:2px dashed var(--paper2);color:var(--ink);font-weight:500}
+  .fact:last-child{border-bottom:0}
+  .fact b{font-size:1.15rem;width:1.6em;text-align:center;flex:none}
+  a.fact{font-weight:700;text-decoration:none}
+  a.fact:hover{background:var(--sun-soft)}
+  .countdown{border-top:var(--b);background:var(--ink);color:var(--paper);padding:10px 18px;text-align:center;font-weight:700;
+    border-radius:0 0 calc(var(--r) - 2px) calc(var(--r) - 2px)}
+  .countdown:empty{display:none}
+
+  /* Cartes */
+  main{counter-reset:sec}
+  .card{background:var(--card);border:var(--b);border-radius:var(--r);box-shadow:var(--sh);padding:26px 22px;margin-top:30px}
+  .card h2{font-weight:800;font-size:1.6rem;line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;display:flex;align-items:baseline;gap:10px}
+  .card:not(.success) h2::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);
+    font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;font-size:1.05em;color:var(--hot)}
+
+  /* Programme */
+  .timeline{list-style:none;margin:0;padding:0}
+  .timeline li{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;padding:11px 0;border-bottom:2px dashed var(--paper2)}
+  .timeline li:last-child{border-bottom:0}
+  .timeline .t{font-weight:800;font-size:.9rem;text-align:center;background:var(--sun);border:var(--b);border-radius:8px;padding:3px 0}
+  .deadline{margin:18px 0 0;padding:12px 14px;background:var(--paper);border-radius:10px;font-size:.93rem}
+  .deadline:empty{display:none}
+
+  /* Formulaire */
+  fieldset{border:0;margin:0 0 26px;padding:0;min-width:0}
+  legend,.lbl{display:block;font-weight:700;font-size:1.05rem;margin-bottom:10px;padding:0}
+  .hint{font-weight:400;color:var(--muted);font-size:.88rem}
+  input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{
+    width:100%;font:inherit;font-size:1rem;padding:12px 14px;border:var(--b);border-radius:12px;background:#fff;color:var(--ink);
+    transition:box-shadow .15s}
+  input::placeholder,textarea::placeholder{color:#9a92a0}
+  input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--sun)}
+  select{appearance:none;cursor:pointer;padding-right:38px;
+    background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2316131c' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center}
+  textarea{min-height:96px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row{align-items:end}
+
+  .choices{display:grid;gap:12px}
+  .choices.c3{grid-template-columns:repeat(3,1fr)}
+  .choices.c2{grid-template-columns:repeat(2,1fr)}
+  .choice{position:relative;display:block}
+  .choice input{position:absolute;opacity:0;pointer-events:none}
+  .choice > span{display:flex;flex-direction:column;height:100%;border:var(--b);border-radius:14px;padding:14px;background:#fff;cursor:pointer;
+    transition:transform .12s,box-shadow .12s,background .12s}
+  .choice > span:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+  .choice strong{font-size:1.05rem;line-height:1.2}
+  .choice small{color:var(--muted);font-size:.85rem;line-height:1.3;margin-top:3px}
+  .choice input:checked + span{background:var(--sun);transform:translate(-3px,-3px);box-shadow:var(--sh)}
+  .choice input:checked + span small{color:var(--ink)}
+  .choice input:focus-visible + span{outline:3px solid var(--hot);outline-offset:3px}
+  .emoji{font-size:1.7rem;line-height:1;display:block;margin-bottom:8px}
+
+  .person{border:var(--b);border-radius:14px;padding:14px;margin-bottom:12px;background:var(--paper)}
+  .person-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .person-head b{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;background:var(--ink);color:var(--paper);border-radius:99px;padding:3px 11px}
+  .rm{border:0;background:none;color:var(--err);cursor:pointer;font:inherit;font-size:.88rem;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+  .person .row + .row{margin-top:10px}
+  .person.missing{border-color:var(--err);box-shadow:0 0 0 3px #c4251b33}
+  .p-oly{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin-top:12px;padding-top:12px;border-top:2px dashed var(--paper2)}
+  .p-oly > span{font-weight:700;font-size:.95rem}
+  .seg{display:inline-flex;border:var(--b);border-radius:99px;overflow:hidden;background:#fff}
+  .seg label{position:relative;cursor:pointer}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg span{display:block;padding:7px 14px;font-weight:600;font-size:.9rem}
+  .seg label + label span{border-left:var(--b)}
+  .seg input:checked + span{background:var(--sun)}
+  .seg input:focus-visible + span{outline:3px solid var(--hot);outline-offset:-3px}
+  .seg span{white-space:nowrap}
+  .notice.orga{background:var(--ink);color:var(--paper);border-style:solid}
+  .perma{text-align:left;background:var(--sun-soft);border:2px dashed var(--ink);border-radius:14px;padding:14px 16px;margin:0 0 18px}
+  .perma p{margin:4px 0 10px;font-size:.9rem}
+  .perma input{font-size:.85rem !important;padding:9px 12px !important}
+  .perma-btns{display:flex;gap:10px;margin-top:10px}
+  .btn.small{padding:10px 14px;font-size:.95rem;box-shadow:3px 3px 0 var(--hot)}
+  .btn.small.ghost{box-shadow:3px 3px 0 var(--ink);margin-top:0}
+  .req{color:var(--hot);font-weight:800}
+  .req-note{margin:0 0 16px;font-size:.85rem;color:var(--muted)}
+  .invitants{display:flex;flex-wrap:wrap;gap:10px}
+  .invitants label{position:relative;cursor:pointer}
+  .invitants input{position:absolute;opacity:0;pointer-events:none}
+  .invitants span{display:block;border:var(--b);border-radius:99px;background:#fff;padding:9px 18px;font-weight:700;
+    transition:transform .12s,box-shadow .12s,background .12s}
+  .invitants span:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+  .invitants input:checked + span{background:var(--sun);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+  .invitants input:focus-visible + span{outline:3px solid var(--hot);outline-offset:3px}
+  .add{width:100%;border:2px dashed var(--ink);color:var(--ink);background:transparent;padding:12px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer;transition:background .12s}
+  .add:hover{background:var(--sun-soft)}
+
+  .hidden{display:none !important}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .btn{width:100%;border:var(--b);border-radius:14px;padding:17px;font:inherit;font-size:1.15rem;font-weight:800;letter-spacing:.01em;cursor:pointer;
+    color:var(--paper);background:var(--ink);box-shadow:5px 5px 0 var(--hot);transition:transform .1s,box-shadow .1s}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--hot)}
+  .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--hot)}
+  .btn:focus-visible,.add:focus-visible,.rm:focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+  .btn:disabled{opacity:.6;cursor:wait;transform:none}
+  .btn.ghost{background:var(--card);color:var(--ink);box-shadow:4px 4px 0 var(--ink);margin-top:8px}
+  .err{color:var(--err);font-size:.9rem;font-weight:600;margin-top:8px}
+  .notice{background:var(--sun-soft);border:2px dashed var(--ink);border-radius:12px;padding:11px 14px;font-size:.9rem;margin-bottom:20px}
+  .info{margin:-2px 0 14px;padding:10px 14px;background:var(--paper);border-left:4px solid var(--sun);border-radius:8px;font-size:.93rem}
+  .notice code{font-size:.85em;background:#fff;border-radius:4px;padding:1px 5px}
+
+  /* Confirmation */
+  .success{text-align:center}
+  .success .emoji{font-size:3.6rem;margin:4px 0 10px}
+  .success h2{justify-content:center;font-size:1.9rem}
+  .recap{text-align:left;background:var(--paper);border:var(--b);border-radius:14px;padding:6px 16px;margin:20px 0;font-size:.95rem}
+  .recap div{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:9px 0;border-bottom:2px dashed var(--paper2)}
+  .recap div:last-child{border-bottom:0}
+  .recap b{font-weight:700}
+
+  footer{text-align:center;color:var(--muted);font-size:.88rem;margin-top:34px}
+  canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+  @media(max-width:540px){
+    .wrap{padding:4px 14px 56px}
+    .card{padding:22px 16px;margin-top:26px}
+    .row{grid-template-columns:1fr}
+    .seg{display:flex;width:100%}
+    .seg label{flex:1;text-align:center}
+    .seg span{padding:8px 4px;font-size:.86rem}
+    .choices.c3{grid-template-columns:1fr}
+    .choices.c3 .choice > span{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;padding:12px 14px}
+    .choices.c3 .emoji{grid-row:span 2;margin:0}
+    .choices.c3 small{margin-top:0}
+    .recap div{grid-template-columns:1fr;gap:0}
+    .big30{-webkit-text-stroke-width:2.5px;text-shadow:6px 6px 0 var(--ink)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .marquee-track{animation:none}
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="sticker" id="badge">Tu es invité·e ✦</div>
+    <p class="big30">30<em>ans</em></p>
+    <figure class="photo">
+      <span class="tape" aria-hidden="true"></span>
+      <img src="photo.jpg" alt="Les quatre organisateurs" width="905" height="1000">
+      <figcaption id="photoCaption"></figcaption>
+    </figure>
+    <h1 id="title"></h1>
+    <p class="hosts" id="hosts"></p>
+    <div class="ticket">
+      <div class="facts" id="facts"></div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+  </header>
+
+  <main>
+  <section class="card">
+    <h2>Le programme</h2>
+    <ul class="timeline" id="timeline"></ul>
+    <p class="deadline" id="deadline"></p>
+  </section>
+
+  <section class="card" id="formCard">
+    <h2>Ta réponse</h2>
+    <div class="notice hidden" id="demoNotice">Mode aperçu : aucune réponse n'est enregistrée tant que l'URL et la clé Supabase ne sont pas renseignées dans <code>config.js</code>.</div>
+    <div class="notice hidden" id="editNotice">On a retrouvé ta réponse précédente : modifie ce que tu veux et renvoie, c'est la dernière version qui compte.</div>
+    <div class="notice orga hidden" id="orgaNotice"></div>
+    <div class="notice hidden" id="linkNotice">Ce lien de modification n'a pas été trouvé. Tu peux remplir le formulaire à nouveau, ou contacter les organisateurs.</div>
+
+    <form id="rsvp" novalidate>
+      <!-- Pot de miel anti-robots : invisible pour les humains, doit rester vide -->
+      <div class="hp" aria-hidden="true">
+        <label for="hp_site">Laisse ce champ vide</label>
+        <input type="text" id="hp_site" name="hp_site" tabindex="-1" autocomplete="off">
+      </div>
+      <p class="req-note"><span class="req">*</span> obligatoire</p>
+      <fieldset>
+        <div class="row">
+          <div>
+            <label class="lbl" for="nom">Ton prénom et nom <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="nom" name="nom" autocomplete="name" required>
+          </div>
+          <div>
+            <label class="lbl" for="contact">Téléphone ou e-mail <span class="hint">(pour les infos de dernière minute)</span></label>
+            <input type="text" id="contact" name="contact" autocomplete="tel">
+          </div>
+        </div>
+        <div class="err hidden" id="errNom">On a besoin de ton nom 🙂</div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Par qui as-tu été invité·e ? <span class="req" aria-hidden="true">*</span></legend>
+        <div class="invitants" id="invitants" role="radiogroup" aria-label="Par qui as-tu été invité·e"></div>
+        <div class="err hidden" id="errInvite">Dis-nous qui t'a invité·e.</div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tu viens ? <span class="req" aria-hidden="true">*</span></legend>
+        <div class="choices c3">
+          <label class="choice"><input type="radio" name="presence" value="Oui"><span><span class="emoji">🎉</span><strong>Oui !</strong><small>Je ne raterais ça pour rien</small></span></label>
+          <label class="choice"><input type="radio" name="presence" value="Peut-être"><span><span class="emoji">🤔</span><strong>Peut-être</strong><small>Je confirme vite</small></span></label>
+          <label class="choice"><input type="radio" name="presence" value="Non"><span><span class="emoji">😢</span><strong>Non</strong><small>Je ne pourrai pas</small></span></label>
+        </div>
+        <div class="err hidden" id="errPresence">Dis-nous si tu viens.</div>
+      </fieldset>
+
+      <div id="yesBlock" class="hidden">
+        <fieldset>
+          <legend>Vous arrivez quand ? <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choices c2">
+            <label class="choice"><input type="radio" name="arrivee" value="Après-midi"><span><span class="emoji">☀️</span><strong>Dès l'après-midi</strong><small id="lblAprem">Olympiades + repas + soirée</small></span></label>
+            <label class="choice"><input type="radio" name="arrivee" value="Soirée"><span><span class="emoji">🌙</span><strong>Pour la soirée</strong><small id="lblSoir">Repas + DJ</small></span></label>
+          </div>
+          <div class="err hidden" id="errArrivee">Choisis un moment d'arrivée.</div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Qui vient ? <span class="hint">— toi et les personnes qui t'accompagnent, avec leur régime</span></legend>
+          <p class="info hidden" id="olyInfo">🏅 L'après-midi, place aux <b>olympiades</b> ! Indique pour chaque personne si elle veut participer <span class="req" aria-hidden="true">*</span></p>
+          <div id="people"></div>
+          <div class="err hidden" id="errOly">Indique pour chaque personne si elle participe aux olympiades.</div>
+          <button type="button" class="add" id="addPerson">+ Ajouter une personne</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Vous dormez sur place ?</legend>
+          <p class="info">🛏️ Des couchages sont mis à disposition sur place, au tarif de <b>13 € par couchage</b>.</p>
+          <div class="choices c3">
+            <label class="choice"><input type="radio" name="dodo" value="Non, on rentre"><span><span class="emoji">🚗</span><strong>Non</strong><small>On rentre</small></span></label>
+            <label class="choice"><input type="radio" name="dodo" value="Tente / van"><span><span class="emoji">⛺</span><strong>Oui, on s'équipe</strong><small>Tente, van, camping-car</small></span></label>
+            <label class="choice"><input type="radio" name="dodo" value="Si couchage dispo"><span><span class="emoji">🛏️</span><strong>Oui, un couchage</strong><small>13 € par couchage</small></span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <fieldset id="msgBlock" class="hidden">
+        <label class="lbl" for="message" id="lblMessage">Un petit mot pour nous ?</label>
+        <textarea id="message" name="message" placeholder="Allergie importante, question, souvenir gênant à raconter…"></textarea>
+      </fieldset>
+
+      <button type="submit" class="btn" id="submitBtn">Envoyer ma réponse</button>
+      <div class="err hidden" id="errSend"></div>
+    </form>
+  </section>
+
+  <section class="card success hidden" id="successCard">
+    <span class="emoji" id="successEmoji">🎉</span>
+    <h2 id="successTitle">C'est noté !</h2>
+    <p id="successText"></p>
+    <div class="recap" id="recap"></div>
+    <div class="perma" id="perma">
+      <b>🔗 Ton lien pour modifier ta réponse</b>
+      <p>Garde-le (envoie-le-toi par message ou mets-le en favori) : il rouvre ta réponse depuis n'importe quel téléphone ou ordinateur.</p>
+      <input type="text" id="permaUrl" readonly aria-label="Lien de modification">
+      <div class="perma-btns">
+        <button type="button" class="btn small" id="copyLink">Copier le lien</button>
+        <button type="button" class="btn small ghost hidden" id="shareLink">Partager…</button>
+      </div>
+    </div>
+    <button class="btn ghost" id="editBtn">Modifier ma réponse</button>
+  </section>
+  </main>
+
+  <footer id="footer"></footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
+<script src="config.js"></script>
+<script>
+/* =====================================================================
+   CONFIGURATION — à adapter avant d'envoyer le lien
+   ===================================================================== */
+// Les identifiants Supabase sont dans config.js (partagé avec la page /admin).
+const CONFIG = {
+  titre: "On fête nos 30 ans !",
+  organisateurs: "Lucas, Anthony, Antoine & Théo",
+  // Réponses possibles à « Par qui as-tu été invité·e ? » : mêmes prénoms que dans supabase/maj-v3.sql
+  invitants: ["Lucas", "Anthony", "Antoine", "Théo"],
+  legendePhoto: "Les coupables",                     // texte sous la photo (vide = pas de légende)
+  dateTexte: "Samedi 18 septembre 2027",
+  dateISO: "2027-09-18T14:00:00",                       // ex. "2027-09-18T14:00:00" pour activer le compte à rebours
+  lieu: "MFR de Cerisy-Belle-Étoile",
+  adresse: "6 route de Flers, 61100 Cerisy-Belle-Étoile",                       // ex. "Rue …, 61100 Cerisy-Belle-Étoile"
+  lienCarte: "https://maps.app.goo.gl/avt828nK6fTKmKrq6",                     // lien Google Maps / Waze (facultatif)
+  dateLimite: "29 mars 2027",        // date limite de réponse (texte affiché)
+  verrouModifs: "2027-03-30T00:00:00", // à partir de ce moment, les invités ne peuvent plus modifier leur réponse
+                                       // (la même date est vérifiée côté base, dans supabase/schema.sql)
+  contactOrga: "Lucas : 06 71 34 62 96",                   // ex. "Lucas : 06 xx xx xx xx"
+
+  programme: [
+    ["14h00", "Accueil des invités & jeux en extérieur"],
+    ["19h30", "Apéro puis repas"],
+    ["22h30", "DJ & piste de danse jusqu'au bout de la nuit"],
+    ["Dim.", "Petit-déj pour les courageux qui dorment sur place"]
+  ],
+
+  regimes: ["Aucun", "Végétarien", "Vegan", "Sans gluten", "Sans porc", "Allergie / autre"]
+};
+/* ===================================================================== */
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const STORE_KEY = "rsvp30_v1";
+const SB = window.RSVP_SUPABASE || {};
+
+// Lien perso : ?r=<id> rouvre une réponse ; &orga=1 = ouvert depuis l'admin par un organisateur
+const params = new URLSearchParams(location.search);
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const LINK_ID = UUID_RE.test(params.get("r") || "") ? params.get("r").toLowerCase() : null;
+const ORGA = !!LINK_ID && params.get("orga") === "1";
+const isLocked = () => !!CONFIG.verrouModifs && new Date() >= new Date(CONFIG.verrouModifs);
+
+// En mode organisateur, on réutilise la session de l'admin (même site) pour pouvoir modifier après la date limite
+const db = (SB.url && SB.anonKey && window.supabase)
+  ? window.supabase.createClient(SB.url, SB.anonKey, { auth: { persistSession: ORGA } })
+  : null;
+let currentId = null, lastData = null;
+
+/* ---------- Infos de l'événement ---------- */
+$("#title").textContent = CONFIG.titre;
+$("#hosts").textContent = "par " + CONFIG.organisateurs;
+$("#photoCaption").textContent = CONFIG.legendePhoto || "";
+
+// Bandeau défilant : deux moitiés identiques pour une boucle sans saut
+const mqItems = ["30 ans", CONFIG.dateTexte, CONFIG.lieu, "Tu viens ?"].filter(Boolean);
+for (let k = 0; k < 2; k++) {
+  const s = document.createElement("span");
+  for (let n = 0; n < 4; n++) mqItems.forEach(t => { s.append(t); const i = document.createElement("i"); i.textContent = "✦"; s.append(i); });
+  $("#marquee").append(s);
+}
+
+const facts = [["📅", CONFIG.dateTexte], ["📍", CONFIG.lieu + (CONFIG.adresse ? " — " + CONFIG.adresse : "")]];
+facts.forEach(([i, t]) => {
+  const d = document.createElement("div");
+  d.className = "fact";
+  d.innerHTML = `<b>${i}</b> `;
+  d.append(t);
+  $("#facts").append(d);
+});
+if (CONFIG.lienCarte) {
+  const a = document.createElement("a");
+  a.href = CONFIG.lienCarte; a.target = "_blank"; a.rel = "noopener";
+  a.className = "fact"; a.innerHTML = "<b>🗺️</b> Itinéraire →";
+  $("#facts").append(a);
+}
+CONFIG.programme.forEach(([t, txt]) => {
+  const li = document.createElement("li");
+  li.innerHTML = `<span class="t"></span><span></span>`;
+  li.children[0].textContent = t; li.children[1].textContent = txt;
+  $("#timeline").append(li);
+});
+$("#deadline").textContent = CONFIG.dateLimite ? `⏳ Merci de répondre avant le ${CONFIG.dateLimite}, ça nous aide énormément pour l'organisation.` : "";
+$("#footer").textContent = CONFIG.contactOrga ? "Une question ? " + CONFIG.contactOrga : "";
+if (CONFIG.programme[0]) $("#lblAprem").textContent = `Dès ${CONFIG.programme[0][0]} — olympiades, repas, soirée`;
+
+function tick() {
+  if (!CONFIG.dateISO) return;
+  const diff = new Date(CONFIG.dateISO) - new Date();
+  if (isNaN(diff)) return;
+  if (diff <= 0) { $("#countdown").textContent = "C'est le grand jour ! 🎂"; return; }
+  const j = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24;
+  $("#countdown").textContent = `Plus que ${j} jour${j > 1 ? "s" : ""} et ${h} h`;
+}
+tick(); setInterval(tick, 60000);
+if (!db) $("#demoNotice").classList.remove("hidden");
+
+/* ---------- Par qui as-tu été invité·e ? ---------- */
+[...CONFIG.invitants.map(n => [n, n]), ["Plusieurs", "Plusieurs d'entre vous"]].forEach(([v, label]) => {
+  const l = document.createElement("label");
+  l.innerHTML = `<input type="radio" name="invitePar"><span></span>`;
+  l.querySelector("input").value = v; l.querySelector("span").textContent = label;
+  l.querySelector("input").addEventListener("change", () => $("#errInvite").classList.add("hidden"));
+  $("#invitants").append(l);
+});
+const invLabel = v => v === "Plusieurs" ? "Plusieurs d'entre vous" : v;
+
+/* ---------- Participants ---------- */
+function regimeOptions(sel) {
+  return CONFIG.regimes.map(r => `<option${r === sel ? " selected" : ""}>${r}</option>`).join("");
+}
+// Anciennes réponses : true/false -> "Oui"/"Non"
+const normOly = v => v === true ? "Oui" : v === false ? "Non" : (["Oui", "Peut-être", "Non"].includes(v) ? v : null);
+let personSeq = 0;
+function addPerson(p = {}) {
+  const idx = $$("#people .person").length;
+  const oly = "oly" + (++personSeq);
+  const div = document.createElement("div");
+  div.className = "person";
+  div.innerHTML = `
+    <div class="person-head"><b></b>${idx ? '<button type="button" class="rm">Retirer</button>' : ""}</div>
+    <div class="row">
+      <input type="text" class="p-nom" placeholder="Prénom" aria-label="Prénom">
+      <select class="p-type" aria-label="Âge"><option>Adulte</option><option>Enfant (- 12 ans)</option></select>
+    </div>
+    <div class="row">
+      <select class="p-regime" aria-label="Régime alimentaire">${regimeOptions(p.regime || "Aucun")}</select>
+      <input type="text" class="p-precision" placeholder="Précision (allergie…)" aria-label="Précision">
+    </div>
+    <div class="p-oly" role="radiogroup" aria-label="Participe aux olympiades">
+      <span>🏅 Olympiades ? <span class="req" aria-hidden="true">*</span></span>
+      <div class="seg">
+        <label><input type="radio" name="${oly}" value="Oui"><span>J'suis chaud !</span></label>
+        <label><input type="radio" name="${oly}" value="Non"><span>J'suis pas chaud</span></label>
+      </div>
+    </div>`;
+  div.querySelector(".p-nom").value = p.nom || "";
+  const o = normOly(p.olympiades);
+  if (o === "Oui" || o === "Non") div.querySelector(`.p-oly input[value="${o}"]`).checked = true;   // ancien « Peut-être » : à re-choisir
+  div.querySelector(".p-oly").addEventListener("change", () => div.classList.remove("missing"));
+  if (p.type) div.querySelector(".p-type").value = p.type;
+  div.querySelector(".p-precision").value = p.precision || "";
+  const rm = div.querySelector(".rm");
+  if (rm) rm.onclick = () => { div.remove(); renumber(); };
+  const reg = div.querySelector(".p-regime"), pre = div.querySelector(".p-precision");
+  const sync = () => pre.classList.toggle("hidden", reg.value === "Aucun");
+  reg.onchange = sync; sync();
+  $("#people").append(div);
+  renumber();
+  syncOly();
+}
+const isAprem = () => ($("input[name=arrivee]:checked") || {}).value === "Après-midi";
+function syncOly() {
+  const on = isAprem();
+  $("#olyInfo").classList.toggle("hidden", !on);
+  $$("#people .p-oly").forEach(el => el.classList.toggle("hidden", !on));
+  if (!on) { $("#errOly").classList.add("hidden"); $$("#people .person").forEach(d => d.classList.remove("missing")); }
+}
+$$("input[name=arrivee]").forEach(r => r.addEventListener("change", syncOly));
+function renumber() {
+  $$("#people .person").forEach((d, i) => d.querySelector(".person-head b").textContent = i ? `Personne ${i + 1}` : "Toi");
+}
+$("#addPerson").onclick = () => addPerson();
+$("#nom").addEventListener("input", () => {
+  const first = $("#people .person .p-nom");
+  if (first && !first.dataset.touched) first.value = $("#nom").value.trim().split(" ")[0];
+});
+$("#people").addEventListener("input", e => { if (e.target.classList.contains("p-nom")) e.target.dataset.touched = 1; });
+
+/* ---------- Affichage conditionnel ---------- */
+function onPresence() {
+  const v = ($("input[name=presence]:checked") || {}).value;
+  const coming = v === "Oui" || v === "Peut-être";
+  $("#yesBlock").classList.toggle("hidden", !coming);
+  $("#msgBlock").classList.toggle("hidden", !v);
+  $("#lblMessage").textContent = v === "Non" ? "Un petit mot pour nous ? (ça fait toujours plaisir)" : "Un petit mot pour nous ?";
+  if (coming && !$$("#people .person").length) {
+    addPerson({ nom: $("#nom").value.trim().split(" ")[0] });
+  }
+}
+$$("input[name=presence]").forEach(r => r.addEventListener("change", onPresence));
+
+/* ---------- Mémoire locale (pour modifier sa réponse) ---------- */
+function loadSaved() { try { return JSON.parse(localStorage.getItem(STORE_KEY)); } catch { return null; } }
+function save(d) { try { localStorage.setItem(STORE_KEY, JSON.stringify(d)); } catch {} }
+function newId() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  // Anciens navigateurs : UUID v4 fabriqué à la main (la base exige un vrai UUID)
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+  const h = [...b].map(x => x.toString(16).padStart(2, "0")).join("");
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
+function fillForm(d) {
+  $("#nom").value = d.nom || "";
+  $("#contact").value = d.contact || "";
+  const pr = $(`input[name=presence][value="${d.presence}"]`); if (pr) pr.checked = true;
+  $$("input[name=invitePar]").forEach(i => i.checked = i.value === d.invitePar);
+  const ar = $(`input[name=arrivee][value="${d.arrivee}"]`); if (ar) ar.checked = true;
+  $("#people").innerHTML = "";
+  (d.participants || []).forEach(p => addPerson(p));
+  $$("#people .p-nom").forEach(i => i.dataset.touched = 1);
+  const dd = $(`input[name=dodo][value="${d.dodo}"]`); if (dd) dd.checked = true;
+  $("#message").value = d.message || "";
+  onPresence();
+}
+
+/* ---------- Envoi ---------- */
+function collect() {
+  const presence = ($("input[name=presence]:checked") || {}).value || "";
+  const coming = presence === "Oui" || presence === "Peut-être";
+  const aprem = coming && isAprem();
+  const participants = coming ? $$("#people .person").map(d => {
+    const o = (d.querySelector(".p-oly input:checked") || {}).value;
+    return {
+      nom: d.querySelector(".p-nom").value.trim(),
+      type: d.querySelector(".p-type").value,
+      regime: d.querySelector(".p-regime").value,
+      precision: d.querySelector(".p-regime").value === "Aucun" ? "" : d.querySelector(".p-precision").value.trim(),
+      olympiades: aprem && o ? o : null   // "Oui" / "Peut-être" / "Non" ; null = arrive le soir ou pas répondu
+    };
+  }) : [];
+  return {
+    id: currentId || newId(),
+    nom: $("#nom").value.trim(),
+    contact: $("#contact").value.trim(),
+    invitePar: ($("input[name=invitePar]:checked") || {}).value || "",
+    presence,
+    participants,
+    arrivee: coming ? (($("input[name=arrivee]:checked") || {}).value || "") : "",
+    dodo: coming ? (($("input[name=dodo]:checked") || {}).value || "") : "",
+    // Champs retirés du formulaire, envoyés vides pour rester compatibles avec submit_rsvp
+    covoit: "", villeDepart: "", places: "", aide: [], chanson: "",
+    message: $("#message").value.trim(),
+    hp: $("#hp_site").value
+  };
+}
+
+function validate(d) {
+  let ok = true;
+  const show = (id, cond) => { $(id).classList.toggle("hidden", !cond); if (cond) ok = false; };
+  show("#errNom", !d.nom);
+  show("#errInvite", !d.invitePar);
+  show("#errPresence", !d.presence);
+  show("#errArrivee", d.presence === "Oui" && !d.arrivee);
+  const persons = $$("#people .person");
+  const olyMissing = d.arrivee === "Après-midi" ? d.participants.map((p, i) => p.olympiades === null ? persons[i] : null).filter(Boolean) : [];
+  persons.forEach(el => el.classList.toggle("missing", olyMissing.includes(el)));
+  show("#errOly", olyMissing.length > 0);
+  if (!ok) { const e = $$(".err:not(.hidden)")[0]; e && e.scrollIntoView({ behavior: "smooth", block: "center" }); }
+  return ok;
+}
+
+$("#rsvp").addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = collect();
+  if (d.hp) { showSuccess({ ...d, presence: d.presence || "Oui" }); return; } // robot : faux succès, rien n'est envoyé
+  if (!validate(d)) return;
+  d.participants.forEach((p, i) => { if (!p.nom) p.nom = i ? `Invité ${i + 1} de ${d.nom}` : d.nom; });
+
+  const btn = $("#submitBtn");
+  btn.disabled = true; btn.textContent = "Envoi…";
+  $("#errSend").classList.add("hidden");
+  try {
+    if (db) {
+      const { error } = await db.rpc("submit_rsvp", { p: d });
+      if (error) throw error;
+    } else {
+      await new Promise(r => setTimeout(r, 500));
+      console.log("[Aperçu] Réponse qui serait envoyée :", d);
+    }
+    currentId = d.id; lastData = d;
+    if (!ORGA) save(d);
+    showSuccess(d);
+  } catch (err) {
+    const closed = /modifications_closes/.test(err?.message || "");
+    $("#errSend").textContent = closed
+      ? (ORGA ? "Modification refusée : connecte-toi d'abord sur la page admin dans ce navigateur, puis recharge cette page."
+              : `Les modifications sont closes depuis le ${CONFIG.dateLimite}. Pour tout changement, contacte les organisateurs${CONFIG.contactOrga ? " (" + CONFIG.contactOrga + ")" : ""}.`)
+      : "Oups, l'envoi a échoué. Vérifie ta connexion et réessaie. Si ça persiste, préviens-nous directement.";
+    $("#errSend").classList.remove("hidden");
+  } finally {
+    btn.disabled = false; btn.textContent = "Envoyer ma réponse";
+  }
+});
+
+const permaUrl = id => location.href.split(/[?#]/)[0] + "?r=" + id;
+const contactTxt = () => CONFIG.contactOrga ? ` (${CONFIG.contactOrga})` : "";
+
+function showSuccess(d, opts = {}) {
+  const map = {
+    "Oui": ["🎉", "Génial, c'est noté !", "On a hâte de vous voir ! Tu peux modifier ta réponse jusqu'au " + CONFIG.dateLimite + "."],
+    "Peut-être": ["🤞", "Noté, on croise les doigts", "Reviens confirmer dès que tu sais, avec ton lien ci-dessous (avant le " + CONFIG.dateLimite + ")."],
+    "Non": ["💛", "Dommage, tu vas nous manquer", "Merci d'avoir répondu. Si tes plans changent, tu peux modifier ta réponse jusqu'au " + CONFIG.dateLimite + "."]
+  };
+  let [em, ti, tx] = map[d.presence] || map["Oui"];
+  if (opts.locked) { em = "📋"; ti = "Ta réponse"; tx = `Les modifications sont closes depuis le ${CONFIG.dateLimite}. Pour tout changement, contacte les organisateurs${contactTxt()}.`; }
+  if (ORGA) { em = "✅"; ti = "Réponse mise à jour"; tx = `La réponse de ${d.nom} est enregistrée. Tu peux fermer cet onglet.`; }
+  $("#successEmoji").textContent = em; $("#successTitle").textContent = ti; $("#successText").textContent = tx;
+  $("#permaUrl").value = permaUrl(d.id);
+  $("#perma").classList.toggle("hidden", !!opts.locked || ORGA);
+  $("#editBtn").classList.toggle("hidden", !!opts.locked && !ORGA);
+  const lines = [["Réponse", d.presence]];
+  if (d.invitePar) lines.push(["Invité·e par", invLabel(d.invitePar)]);
+  if (d.participants.length) {
+    lines.push(["Personnes", d.participants.map(p => p.nom + (p.type.startsWith("Enfant") ? " (enfant)" : "") + (p.regime !== "Aucun" ? " — " + p.regime + (p.precision ? " : " + p.precision : "") : "")).join(", ")]);
+  }
+  if (d.arrivee) lines.push(["Arrivée", d.arrivee]);
+  if (d.arrivee === "Après-midi" && d.participants.length) {
+    const who = s => d.participants.filter(p => normOly(p.olympiades) === s).map(p => p.nom);
+    const o = [["Chauds", who("Oui")], ["Pas chauds", who("Non")]]
+      .filter(([, n]) => n.length).map(([k, n]) => `${k} : ${n.join(", ")}`);
+    if (o.length) lines.push(["Olympiades", o.join(" · ")]);
+  }
+  const dodoTxt = { "Tente / van": "Sur place, en tente / van", "Si couchage dispo": "Un couchage sur place (13 € par couchage)" };
+  if (d.dodo) lines.push(["Nuit", dodoTxt[d.dodo] || d.dodo]);
+  if (d.message) lines.push(["Ton mot", d.message]);
+  $("#recap").innerHTML = "";
+  lines.forEach(([k, v]) => { const div = document.createElement("div"); div.innerHTML = "<b></b> "; div.firstChild.textContent = k; div.append(v); $("#recap").append(div); });
+  $("#formCard").classList.add("hidden");
+  $("#successCard").classList.remove("hidden");
+  if (opts.quiet) return;
+  $("#successCard").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (d.presence !== "Non" && !ORGA) confetti();
+}
+
+$("#editBtn").onclick = () => {
+  if (isLocked() && !ORGA) return;
+  const d = lastData || loadSaved(); if (d) fillForm(d);
+  $("#successCard").classList.add("hidden");
+  $("#formCard").classList.remove("hidden");
+  if (!ORGA) $("#editNotice").classList.remove("hidden");
+  $("#formCard").scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+$("#copyLink").onclick = async () => {
+  const inp = $("#permaUrl");
+  try { await navigator.clipboard.writeText(inp.value); }
+  catch { inp.select(); document.execCommand("copy"); }
+  $("#copyLink").textContent = "Copié ✓";
+  setTimeout(() => $("#copyLink").textContent = "Copier le lien", 2000);
+};
+if (navigator.share) {
+  $("#shareLink").classList.remove("hidden");
+  $("#shareLink").onclick = () => navigator.share({ title: "Ma réponse — " + CONFIG.titre, text: "Mon lien pour modifier ma réponse :", url: $("#permaUrl").value }).catch(() => {});
+}
+
+/* ---------- Démarrage : retrouver une réponse existante ---------- */
+async function boot() {
+  let d = null, fromLink = false;
+  if (LINK_ID && db) {
+    const { data, error } = await db.rpc("get_rsvp", { rid: LINK_ID });
+    if (!error && data) { d = data; fromLink = true; }
+    else $("#linkNotice").classList.remove("hidden");
+  }
+  if (!d && !ORGA) d = loadSaved();
+  if (!d) return;
+
+  currentId = d.id; lastData = d;
+  if (ORGA) {
+    $("#orgaNotice").textContent = `Mode organisateur : tu modifies la réponse de ${d.nom}. Rien n'est enregistré sur cet appareil.`;
+    $("#orgaNotice").classList.remove("hidden");
+    fillForm(d);
+    return;
+  }
+  if (fromLink) save(d);           // ce navigateur s'en souviendra la prochaine fois
+  $("#badge").textContent = "Content de te revoir ✦";
+  if (isLocked()) { showSuccess(d, { locked: true, quiet: true }); return; }
+  fillForm(d);
+  $("#editNotice").classList.remove("hidden");
+}
+boot();
+
+/* ---------- Confettis ---------- */
+function confetti() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = $("#confetti"), x = c.getContext("2d");
+  c.width = innerWidth; c.height = innerHeight;
+  const cols = ["#ff4f2b", "#ffd23f", "#16131c", "#ffffff", "#ff8a65"];
+  const parts = Array.from({ length: 160 }, () => ({
+    x: Math.random() * c.width, y: -20 - Math.random() * c.height * .5,
+    w: 6 + Math.random() * 6, h: 8 + Math.random() * 8, r: Math.random() * 6,
+    vy: 2 + Math.random() * 3, vx: -1.5 + Math.random() * 3, vr: -.2 + Math.random() * .4,
+    col: cols[Math.floor(Math.random() * cols.length)]
+  }));
+  let f = 0;
+  (function step() {
+    x.clearRect(0, 0, c.width, c.height);
+    parts.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.col; x.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      x.strokeStyle = "#16131c"; x.lineWidth = 1; x.strokeRect(-p.w / 2, -p.h / 2, p.w, p.h); x.restore();
+    });
+    if (++f < 220) requestAnimationFrame(step); else x.clearRect(0, 0, c.width, c.height);
+  })();
+}
+</script>
+</body>
+</html>

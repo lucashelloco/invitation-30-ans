@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — 30 ans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f6f2ec;--card:#fff;--ink:#1d1726;--muted:#6d6578;--line:#e9e1d4;--accent:#ff6b4a;--dark:#16121f;
+    --oui:#2fa36b;--maybe:#e6a019;--non:#c0392b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"DM Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+  .hidden{display:none !important}
+  h1,h2{font-family:Fraunces,serif;margin:0}
+  button{font:inherit;cursor:pointer}
+  input,select{font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+
+  /* Login */
+  .login{min-height:100vh;display:grid;place-items:center;background:var(--dark);
+    background-image:radial-gradient(circle at 15% 0%,#3a2350 0,transparent 45%),radial-gradient(circle at 100% 40%,#4a2330 0,transparent 40%)}
+  .login form{background:#fffaf2;padding:28px 26px;border-radius:18px;width:min(360px,92vw);box-shadow:0 12px 40px #0007}
+  .login h1{font-size:1.5rem;margin-bottom:4px}
+  .login p{color:var(--muted);margin:0 0 18px;font-size:.92rem}
+  .login label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 6px}
+  .login input{width:100%}
+  .primary{width:100%;margin-top:18px;border:0;border-radius:12px;padding:13px;background:var(--accent);color:#fff;font-weight:700}
+  .primary:disabled{opacity:.6}
+  .err{color:var(--non);font-size:.9rem;margin-top:10px}
+
+  /* App */
+  header.top{background:var(--dark);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  header.top h1{font-size:1.3rem}
+  header.top .who{color:#cfc6dc;font-size:.88rem}
+  .top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .ghost{border:1px solid #ffffff40;background:transparent;color:#fff;border-radius:10px;padding:8px 12px;font-size:.9rem}
+  .ghost:hover{background:#ffffff14}
+  .live{font-size:.8rem;color:#9be3bd}
+  .live::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#2fa36b;margin-right:6px}
+  main{max-width:1200px;margin:0 auto;padding:22px 18px 60px}
+
+  .group-title{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px;font-weight:700}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .tile .v{font-family:Fraunces,serif;font-size:2rem;line-height:1.1}
+  .tile .l{color:var(--muted);font-size:.86rem}
+  .tile.hl{background:var(--dark);color:#fff;border-color:var(--dark)}
+  .tile.hl .l{color:#cfc6dc}
+  .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;display:flex;margin-top:10px}
+  .bar span{display:block;height:100%}
+
+  .tabs{display:flex;gap:6px;margin:30px 0 14px;flex-wrap:wrap;border-bottom:1.5px solid var(--line)}
+  .tab{border:0;background:none;padding:10px 14px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1.5px}
+  .tab.active{color:var(--ink);border-color:var(--accent)}
+  .tab .n{background:var(--line);border-radius:99px;padding:1px 8px;font-size:.78rem;margin-left:4px}
+
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .toolbar input{flex:1;min-width:200px}
+  .btn2{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-weight:500}
+  .btn2:hover{border-color:var(--accent)}
+
+  .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:auto}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:#fbf8f4;position:sticky;top:0}
+  tr:last-child td{border-bottom:0}
+  td small{color:var(--muted);display:block}
+  .pill{display:inline-block;border-radius:99px;padding:2px 10px;font-size:.8rem;font-weight:700;color:#fff}
+  .pill.Oui{background:var(--oui)}.pill.Peut-être{background:var(--maybe)}.pill.Non{background:var(--non)}
+  .del{border:0;background:none;color:var(--muted);text-decoration:underline;font-size:.85rem}
+  .del:hover{color:var(--non)}
+  .acts{white-space:nowrap}
+  .act{border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:3px 9px;font-size:.82rem;font-weight:700;color:var(--ink);text-decoration:none;margin-right:4px;display:inline-block}
+  .act:hover{border-color:var(--accent)}
+  .scope{display:inline-flex;border:1.5px solid var(--line);border-radius:99px;background:#fff;overflow:hidden}
+  .scope button{border:0;background:none;padding:9px 16px;font-weight:700;color:var(--muted)}
+  .scope button.on{background:var(--dark);color:#fff}
+  .scope-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
+  .scope-hint{color:var(--muted);font-size:.9rem}
+  .tile.warn{background:#fff6e0;border-color:var(--maybe);text-align:left;font:inherit;color:inherit;cursor:pointer}
+  .tile.warn .v{color:#b77700}
+  .tile.warn.zero{background:var(--card);border-color:var(--line);cursor:default}
+  .tile.warn.zero .v{color:var(--ink)}
+  .st{display:inline-block;font-size:.78rem;font-weight:700;border-radius:6px;padding:1px 7px;margin-bottom:4px}
+  .st-wait{background:#fff0c7;color:#8a5a00}.st-ok{background:#e1f4ea;color:#1d7a4c}.st-ko{background:#fbe3e0;color:#a5281b}
+  .act.ok{border-color:var(--oui);color:var(--oui)}.act.no{border-color:var(--non);color:var(--non)}
+  tr.pending td{background:#fffaf0}
+  tr.refused td{opacity:.55}
+  .empty{padding:30px;text-align:center;color:var(--muted)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  .msg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .msg b{display:block;margin-bottom:4px}
+  .msg p{margin:0;white-space:pre-wrap}
+  .center{min-height:60vh;display:grid;place-items:center;color:var(--muted);text-align:center;padding:20px}
+</style>
+</head>
+<body>
+
+<!-- Écran de connexion -->
+<section class="login hidden" id="loginView">
+  <form id="loginForm" autocomplete="on">
+    <h1>Espace organisateurs</h1>
+    <p>Réservé aux 4 organisateurs.</p>
+    <label for="email">E-mail</label>
+    <input type="email" id="email" autocomplete="username" required>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" autocomplete="current-password" required>
+    <button class="primary" id="loginBtn">Entrer</button>
+    <div class="err hidden" id="loginErr"></div>
+  </form>
+</section>
+
+<!-- Messages plein écran -->
+<section class="center hidden" id="msgView"><div id="msgText"></div></section>
+
+<!-- Tableau de bord -->
+<section class="hidden" id="appView">
+  <header class="top">
+    <div>
+      <h1>Les 30 ans — réponses</h1>
+      <div class="who" id="who"></div>
+    </div>
+    <div class="top-actions">
+      <span class="live hidden" id="live">En direct</span>
+      <button class="ghost" id="csvR">Export réponses (CSV)</button>
+      <button class="ghost" id="csvP">Export participants (CSV)</button>
+      <button class="ghost" id="logout">Déconnexion</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="scope-bar">
+      <div class="scope hidden" id="scope" role="tablist" aria-label="Périmètre">
+        <button data-scope="mine" id="scopeMine">Mes invités</button>
+        <button data-scope="all">Tout le monde</button>
+      </div>
+      <span class="scope-hint" id="scopeHint"></span>
+    </div>
+
+    <div class="group-title">Réponses</div>
+    <div class="tiles" id="tilesReponses"></div>
+
+    <div class="group-title">Personnes confirmées (« Oui »)</div>
+    <div class="tiles" id="tilesPersonnes"></div>
+
+    <div class="group-title">Olympiades (personnes confirmées)</div>
+    <div class="tiles" id="tilesOly"></div>
+
+    <div class="group-title">Régimes (personnes confirmées)</div>
+    <div class="tiles" id="tilesRegimes"></div>
+
+    <div class="group-title">Logistique</div>
+    <div class="tiles" id="tilesLogistique"></div>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="reponses">Réponses <span class="n" id="nReponses">0</span></button>
+      <button class="tab" data-tab="olympiades">Olympiades <span class="n" id="nOly">0</span></button>
+      <button class="tab" data-tab="regimes">Régimes & allergies <span class="n" id="nRegimes">0</span></button>
+      <button class="tab" data-tab="messages">Messages <span class="n" id="nMessages">0</span></button>
+    </nav>
+
+    <div data-panel="reponses">
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Rechercher un nom, un contact…">
+        <select id="filterPresence">
+          <option value="">Toutes les réponses</option>
+          <option>Oui</option><option>Peut-être</option><option>Non</option>
+          <option value="s:En attente">À valider</option><option value="s:Validée">Validées</option><option value="s:Refusée">Refusées</option>
+        </select>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nom</th><th>Réponse</th><th>Invité par</th><th>Statut</th><th>Personnes</th><th>Arrivée</th><th>Nuit</th><th>Contact</th><th>Mis à jour</th><th></th></tr></thead>
+        <tbody id="tbReponses"></tbody>
+      </table></div>
+    </div>
+
+    <div data-panel="olympiades" class="hidden">
+      <div class="toolbar"><button class="btn2" id="copyOly">Copier la liste des participants</button></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Participant</th><th>Olympiades</th><th>Âge</th><th>Réponse de</th><th>Invité par</th><th>Contact</th></tr></thead>
+        <tbody id="tbOly"></tbody>
+      </table></div>
+    </div>
+
+    <div data-panel="regimes" class="hidden">
+      <div class="table-wrap"><table>
+        <thead><tr><th>Personne</th><th>Régime</th><th>Précision</th><th>Réponse de</th><th>Réponse</th><th>Arrivée</th></tr></thead>
+        <tbody id="tbRegimes"></tbody>
+      </table></div>
+    </div>
+
+    <div data-panel="messages" class="hidden">
+      <div class="cards" id="messages"></div>
+    </div>
+  </main>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
+<script src="../config.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmtDate = d => new Date(d).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+const SB = window.RSVP_SUPABASE || {};
+const sb = (SB.url && SB.anonKey && window.supabase) ? window.supabase.createClient(SB.url, SB.anonKey) : null;
+
+const PRIX_COUCHAGE = 13; // € par couchage, comme annoncé sur la page invités
+
+// Olympiades : anciennes valeurs true/false -> "Oui"/"Non"
+const oly = p => p.olympiades === true ? "Oui" : p.olympiades === false ? "Non" : p.olympiades || "";
+// Adresse de la page invités (pour les liens perso et le bouton Modifier)
+const GUEST_URL = new URL(location.protocol === "file:" ? "../index.html" : "../", location.href).href;
+const persoUrl = id => GUEST_URL + "?r=" + id;
+
+let reponses = [], participants = [], channel = null, reloadTimer = null;
+let ME = null;                                           // prénom de l'organisateur connecté (table admins)
+let scope = (() => { try { return localStorage.getItem("adminScope") || "mine"; } catch { return "mine"; } })();
+let current = { scoped: [], R: [], P: [] };              // ce qui est affiché (pour les exports)
+const invLabel = v => v === "Plusieurs" ? "Plusieurs" : (v || "—");
+
+function show(view) {
+  ["loginView", "msgView", "appView"].forEach(v => $("#" + v).classList.toggle("hidden", v !== view));
+}
+function message(html) { $("#msgText").innerHTML = html; show("msgView"); }
+
+/* ---------- Authentification ---------- */
+async function boot() {
+  if (!sb) return message("Supabase n'est pas configuré : renseigne <code>url</code> et <code>anonKey</code> dans <code>config.js</code>.");
+  const { data: { session } } = await sb.auth.getSession();
+  session ? enter(session) : show("loginView");
+  sb.auth.onAuthStateChange((event, s) => {
+    if (event === "SIGNED_OUT") { stopLive(); show("loginView"); }
+  });
+}
+
+$("#loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = $("#loginBtn"); btn.disabled = true; $("#loginErr").classList.add("hidden");
+  const { data, error } = await sb.auth.signInWithPassword({ email: $("#email").value.trim(), password: $("#password").value });
+  btn.disabled = false;
+  if (error) { $("#loginErr").textContent = "E-mail ou mot de passe incorrect."; $("#loginErr").classList.remove("hidden"); return; }
+  $("#password").value = "";
+  enter(data.session);
+});
+
+$("#logout").onclick = () => sb.auth.signOut();
+
+async function enter(session) {
+  const { data: ok, error } = await sb.rpc("is_admin");
+  if (error || !ok) {
+    message(`Ce compte (${esc(session.user.email)}) n'est pas dans la liste des organisateurs.<br><br><button class="btn2" onclick="sb.auth.signOut()">Se déconnecter</button>`);
+    return;
+  }
+  const { data: prenom } = await sb.rpc("my_prenom");
+  ME = prenom || null;
+  $("#who").textContent = "Connecté : " + (ME ? `${ME} (${session.user.email})` : session.user.email);
+  show("appView");
+  await load();
+  startLive();
+}
+
+/* ---------- Données ---------- */
+async function load() {
+  const [r, p] = await Promise.all([
+    sb.from("reponses").select("*").order("updated_at", { ascending: false }),
+    sb.from("participants").select("*").order("ordre")
+  ]);
+  if (r.error || p.error) { alert("Erreur de chargement : " + (r.error || p.error).message); return; }
+  reponses = r.data; participants = p.data;
+  render();
+}
+
+function startLive() {
+  stopLive();
+  channel = sb.channel("rsvp-admin")
+    .on("postgres_changes", { event: "*", schema: "public", table: "reponses" }, scheduleReload)
+    .on("postgres_changes", { event: "*", schema: "public", table: "participants" }, scheduleReload)
+    .subscribe(status => $("#live").classList.toggle("hidden", status !== "SUBSCRIBED"));
+}
+function stopLive() { if (channel) { sb.removeChannel(channel); channel = null; } }
+function scheduleReload() { clearTimeout(reloadTimer); reloadTimer = setTimeout(load, 800); }
+
+/* ---------- Rendu ---------- */
+function tile(v, l, cls = "") { return `<div class="tile ${cls}"><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`; }
+function count(arr, fn) { return arr.filter(fn).length; }
+
+function render() {
+  const byId = Object.fromEntries(reponses.map(r => [r.id, r]));
+  // Périmètre : mes invités (invite_par = mon prénom, ou « Plusieurs ») ou tout le monde
+  const mine = scope === "mine" && !!ME;
+  const inScope = r => !mine || r.invite_par === ME || r.invite_par === "Plusieurs";
+  const scoped = reponses.filter(inScope);
+  // Les réponses refusées (lien divulgué, inconnu…) ne comptent nulle part
+  const R = scoped.filter(r => r.statut !== "Refusée");
+  const ids = new Set(R.map(r => r.id));
+  const P = participants.filter(p => ids.has(p.reponse_id));
+  const partsOf = id => participants.filter(p => p.reponse_id === id);
+  const pOui = P.filter(p => byId[p.reponse_id].presence === "Oui");
+  const pMaybe = P.filter(p => byId[p.reponse_id].presence === "Peut-être");
+  const nOui = count(R, r => r.presence === "Oui"), nMaybe = count(R, r => r.presence === "Peut-être"), nNon = count(R, r => r.presence === "Non");
+  const tot = R.length || 1;
+  const nAttente = count(scoped, r => r.statut === "En attente"), nRefus = count(scoped, r => r.statut === "Refusée");
+
+  $$("#scope button").forEach(b => b.classList.toggle("on", b.dataset.scope === (mine ? "mine" : "all")));
+  $("#scopeMine").textContent = ME ? `Mes invités (${ME})` : "Mes invités";
+  $("#scope").classList.toggle("hidden", !ME);
+  $("#scopeHint").textContent = mine
+    ? `Réponses des personnes invitées par ${ME} (et « plusieurs d'entre vous »).`
+    : "Toutes les réponses, quel que soit l'organisateur qui a invité.";
+
+  $("#tilesReponses").innerHTML =
+    `<div class="tile hl"><div class="v">${R.length}</div><div class="l">réponses comptées</div>
+       <div class="bar"><span style="width:${nOui / tot * 100}%;background:var(--oui)"></span><span style="width:${nMaybe / tot * 100}%;background:var(--maybe)"></span><span style="width:${nNon / tot * 100}%;background:var(--non)"></span></div></div>` +
+    tile(nOui, "Oui") + tile(nMaybe, "Peut-être") + tile(nNon, "Non") +
+    `<button class="tile warn${nAttente ? "" : " zero"}" id="tileAttente"><div class="v">${nAttente}</div><div class="l">à valider</div></button>` +
+    (nRefus ? tile(nRefus, "refusées (non comptées)") : "");
+
+  const aprem = count(pOui, p => byId[p.reponse_id].arrivee === "Après-midi");
+  const soir = count(pOui, p => byId[p.reponse_id].arrivee === "Soirée");
+  $("#tilesPersonnes").innerHTML =
+    tile(pOui.length, "personnes confirmées", "hl") +
+    tile(count(pOui, p => p.type === "Adulte"), "adultes") +
+    tile(count(pOui, p => p.type === "Enfant"), "enfants") +
+    tile(aprem, "dès l'après-midi") +
+    tile(soir, "pour la soirée") +
+    tile(pMaybe.length, "personnes en « peut-être »");
+
+  $("#tilesOly").innerHTML =
+    tile(count(pOui, p => oly(p) === "Oui"), "🏅 chauds", "hl") +
+    tile(count(pOui, p => oly(p) === "Non"), "pas chauds") +
+    tile(count(pMaybe, p => oly(p) === "Oui"), "chauds parmi les « peut-être »") +
+    (count(pOui, p => oly(p) === "Peut-être") ? tile(count(pOui, p => oly(p) === "Peut-être"), "anciens « peut-être » à relancer") : "");
+
+  const ordreOly = { "Oui": 0, "Peut-être": 1 };
+  const olyList = P.filter(p => byId[p.reponse_id].presence !== "Non" && oly(p) in ordreOly)
+    .sort((a, b) => ordreOly[oly(a)] - ordreOly[oly(b)] || a.nom.localeCompare(b.nom));
+  $("#nOly").textContent = olyList.length;
+  $("#tbOly").innerHTML = olyList.length ? olyList.map(p => {
+    const r = byId[p.reponse_id];
+    return `<tr><td><b>${esc(p.nom)}</b></td><td>${oly(p) === "Oui" ? "🏅 Chaud" : "🤔 Peut-être (ancienne réponse)"}</td><td>${p.type === "Enfant" ? "Enfant" : "Adulte"}</td>
+      <td>${esc(r.nom)}${r.presence !== "Oui" ? ` <span class="pill ${esc(r.presence)}">${esc(r.presence)}</span>` : ""}</td><td>${esc(invLabel(r.invite_par))}</td><td>${esc(r.contact || "—")}</td></tr>`;
+  }).join("") : `<tr><td colspan="6" class="empty">Personne d'inscrit aux olympiades pour l'instant.</td></tr>`;
+
+  const regimes = {};
+  pOui.filter(p => p.regime !== "Aucun").forEach(p => regimes[p.regime] = (regimes[p.regime] || 0) + 1);
+  $("#tilesRegimes").innerHTML = tile(count(pOui, p => p.regime === "Aucun"), "sans régime particulier") +
+    (Object.keys(regimes).length ? Object.entries(regimes).sort((a, b) => b[1] - a[1]).map(([k, v]) => tile(v, k)).join("") : "");
+
+  const nCouchage = count(pOui, p => byId[p.reponse_id].dodo === "Si couchage dispo");
+  $("#tilesLogistique").innerHTML =
+    tile(count(pOui, p => byId[p.reponse_id].dodo === "Tente / van"), "dorment en tente / van") +
+    tile(nCouchage, "veulent un couchage") +
+    tile(`${nCouchage * PRIX_COUCHAGE} €`, `de couchages à encaisser (${PRIX_COUCHAGE} € l'unité)`) +
+    tile(count(pOui, p => byId[p.reponse_id].dodo === "Non, on rentre"), "rentrent le soir");
+
+  // Onglet Réponses (toutes celles du périmètre, refusées comprises)
+  const q = $("#search").value.trim().toLowerCase(), fp = $("#filterPresence").value;
+  const keep = r => !fp || (fp.startsWith("s:") ? r.statut === fp.slice(2) : r.presence === fp);
+  const list = scoped.filter(r => keep(r) &&
+    (!q || [r.nom, r.contact, invLabel(r.invite_par), ...partsOf(r.id).map(p => p.nom)].join(" ").toLowerCase().includes(q)))
+    .sort((a, b) => (a.statut === "En attente" ? 0 : 1) - (b.statut === "En attente" ? 0 : 1) || b.updated_at.localeCompare(a.updated_at));
+  $("#nReponses").textContent = scoped.length;
+  $("#tbReponses").innerHTML = list.length ? list.map(r => {
+    const ps = partsOf(r.id);
+    const ad = count(ps, p => p.type === "Adulte"), en = ps.length - ad;
+    const st = r.statut || "Validée";
+    const stBtns = st === "En attente"
+      ? `<button class="act ok" data-statut="${esc(r.id)}|Validée">Valider</button><button class="act no" data-statut="${esc(r.id)}|Refusée">Refuser</button>`
+      : st === "Refusée"
+        ? `<button class="act" data-statut="${esc(r.id)}|Validée">Rétablir</button>`
+        : `<button class="del" data-statut="${esc(r.id)}|Refusée">Refuser</button>`;
+    return `<tr class="${st === "Refusée" ? "refused" : st === "En attente" ? "pending" : ""}">
+      <td><b>${esc(r.nom)}</b>${ps.length ? `<small>${ps.map(p => esc(p.nom) + (p.type === "Enfant" ? " (enfant)" : "")).join(", ")}</small>` : ""}</td>
+      <td><span class="pill ${esc(r.presence)}">${esc(r.presence)}</span></td>
+      <td>${esc(invLabel(r.invite_par))}</td>
+      <td class="acts"><span class="st st-${st === "En attente" ? "wait" : st === "Refusée" ? "ko" : "ok"}">${st === "En attente" ? "À valider" : esc(st)}</span><br>${stBtns}</td>
+      <td>${ps.length ? `${ps.length}<small>${ad} ad. · ${en} enf.</small>` : "—"}</td>
+      <td>${esc(r.arrivee || "—")}</td>
+      <td>${esc(r.dodo || "—")}</td>
+      <td>${esc(r.contact || "—")}</td>
+      <td><small>${fmtDate(r.updated_at)}</small></td>
+      <td class="acts"><a class="act" href="${esc(persoUrl(r.id))}&orga=1" target="_blank" rel="noopener">Modifier</a>
+        <button class="act" data-link="${esc(r.id)}" title="Copier le lien perso à renvoyer à l'invité">Lien</button>
+        <button class="del" data-del="${esc(r.id)}">Supprimer</button></td>
+    </tr>`;
+  }).join("") : `<tr><td colspan="10" class="empty">Aucune réponse${q || fp ? " pour ce filtre" : " pour l'instant"}.</td></tr>`;
+
+  // Onglet Régimes
+  const spec = P.filter(p => p.regime !== "Aucun" && byId[p.reponse_id].presence !== "Non")
+    .sort((a, b) => a.regime.localeCompare(b.regime));
+  $("#nRegimes").textContent = spec.length;
+  $("#tbRegimes").innerHTML = spec.length ? spec.map(p => {
+    const r = byId[p.reponse_id];
+    return `<tr><td><b>${esc(p.nom)}</b>${p.type === "Enfant" ? "<small>enfant</small>" : ""}</td><td>${esc(p.regime)}</td><td>${esc(p.precision || "—")}</td>
+      <td>${esc(r.nom)}</td><td><span class="pill ${esc(r.presence)}">${esc(r.presence)}</span></td><td>${esc(r.arrivee || "—")}</td></tr>`;
+  }).join("") : `<tr><td colspan="6" class="empty">Aucun régime particulier pour l'instant.</td></tr>`;
+
+  // Onglet Messages
+  const msgs = R.filter(r => r.message);
+  $("#nMessages").textContent = msgs.length;
+  $("#messages").innerHTML = msgs.length ? msgs.map(r => `<div class="msg"><b>${esc(r.nom)} <span class="pill ${esc(r.presence)}">${esc(r.presence)}</span></b><p>${esc(r.message)}</p></div>`).join("")
+    : `<div class="empty">Pas encore de message.</div>`;
+
+  current = { scoped, R, P };
+}
+
+$("#search").addEventListener("input", render);
+$("#scope").addEventListener("click", e => {
+  const b = e.target.closest("button[data-scope]"); if (!b) return;
+  scope = b.dataset.scope;
+  try { localStorage.setItem("adminScope", scope); } catch {}
+  render();
+});
+$("#tilesReponses").addEventListener("click", e => {
+  if (!e.target.closest("#tileAttente:not(.zero)")) return;
+  $("#filterPresence").value = "s:En attente";
+  $(".tab[data-tab=reponses]").click();
+  render();
+  $("#tabs").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+$("#filterPresence").addEventListener("change", render);
+
+$("#tabs").addEventListener("click", e => {
+  const t = e.target.closest(".tab"); if (!t) return;
+  $$(".tab").forEach(b => b.classList.toggle("active", b === t));
+  $$("[data-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.panel !== t.dataset.tab));
+});
+
+$("#tbReponses").addEventListener("click", async e => {
+  const stv = e.target.dataset?.statut;
+  if (stv) {
+    const [rid, s] = stv.split("|");
+    const r = reponses.find(x => x.id === rid);
+    if (s === "Refusée" && !confirm(`Refuser la réponse de ${r?.nom} ? Elle ne sera plus comptée (tu pourras la rétablir).`)) return;
+    e.target.disabled = true;
+    const { error } = await sb.rpc("set_statut", { rid, s });
+    if (error) alert("Impossible de changer le statut : " + error.message); else load();
+    return;
+  }
+  const lid = e.target.dataset?.link;
+  if (lid) {
+    const url = persoUrl(lid);
+    try { await navigator.clipboard.writeText(url); e.target.textContent = "Copié ✓"; setTimeout(() => e.target.textContent = "Lien", 2000); }
+    catch { prompt("Lien perso à renvoyer à l'invité :", url); }
+    return;
+  }
+  const id = e.target.dataset?.del; if (!id) return;
+  const r = reponses.find(x => x.id === id);
+  if (!confirm(`Supprimer définitivement la réponse de ${r?.nom} ?`)) return;
+  const { error } = await sb.from("reponses").delete().eq("id", id);
+  if (error) alert("Suppression impossible : " + error.message); else load();
+});
+
+/* ---------- Export CSV (séparateur ; pour Excel FR) ---------- */
+function downloadCsv(name, cols, rows) {
+  const cell = v => {
+    v = v == null ? "" : Array.isArray(v) ? v.join(", ") : String(v);
+    if (/^[=+\-@\t\r]/.test(v)) v = "'" + v;   // anti-injection de formules Excel (=HYPERLINK, =cmd…)
+    return /[;"\n\r]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+  };
+  const text = "﻿" + [cols.map(c => c[0]).join(";"), ...rows.map(r => cols.map(c => cell(c[1](r))).join(";"))].join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: "text/csv;charset=utf-8" }));
+  a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+$("#csvR").onclick = () => downloadCsv("reponses-30ans.csv", [
+  ["Nom", r => r.nom], ["Contact", r => r.contact], ["Présence", r => r.presence],
+  ["Invité par", r => r.invite_par], ["Statut", r => r.statut],
+  ["Nb personnes", r => participants.filter(p => p.reponse_id === r.id).length],
+  ["Arrivée", r => r.arrivee], ["Nuit", r => r.dodo],
+  ["Message", r => r.message], ["Mis à jour", r => fmtDate(r.updated_at)]
+], current.scoped);
+$("#csvP").onclick = () => {
+  const byId = Object.fromEntries(reponses.map(r => [r.id, r]));
+  downloadCsv("participants-30ans.csv", [
+    ["Participant", p => p.nom], ["Type", p => p.type], ["Régime", p => p.regime], ["Précision", p => p.precision],
+    ["Réponse de", p => byId[p.reponse_id]?.nom], ["Invité par", p => byId[p.reponse_id]?.invite_par], ["Présence", p => byId[p.reponse_id]?.presence],
+    ["Arrivée", p => byId[p.reponse_id]?.arrivee], ["Nuit", p => byId[p.reponse_id]?.dodo],
+    ["Olympiades", p => oly(p)]
+  ], current.P);
+};
+
+$("#copyOly").onclick = async () => {
+  const byId = Object.fromEntries(reponses.map(r => [r.id, r]));
+  const txt = current.P.filter(p => oly(p) === "Oui" && byId[p.reponse_id]?.presence === "Oui")
+    .map(p => p.nom + (p.type === "Enfant" ? " (enfant)" : "")).join("\n");
+  try { await navigator.clipboard.writeText(txt); $("#copyOly").textContent = "Copié ✓"; }
+  catch { prompt("Copie la liste :", txt); }
+  setTimeout(() => $("#copyOly").textContent = "Copier la liste des participants", 2000);
+};
+
+boot();
+</script>
+</body>
+</html>
